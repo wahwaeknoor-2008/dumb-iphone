@@ -38,6 +38,7 @@ final class FocusManager: ObservableObject {
         } else {
             mode = .open
             defaults.set(FocusMode.open.rawValue, forKey: modeKey)
+            apply(.open)
         }
     }
 
@@ -51,6 +52,10 @@ final class FocusManager: ObservableObject {
 
     var selectedWebsiteCount: Int {
         selection.webDomainTokens.count
+    }
+
+    var selectedCategoryCount: Int {
+        selection.categoryTokens.count
     }
 
     func requestAuthorization() async {
@@ -94,6 +99,8 @@ final class FocusManager: ObservableObject {
         guard selectedMode.isRestrictive, isAuthorized else {
             settingsStore.shield.applications = nil
             settingsStore.shield.webDomains = nil
+            settingsStore.shield.applicationCategories = nil
+            settingsStore.shield.webDomainCategories = nil
             return
         }
 
@@ -104,6 +111,14 @@ final class FocusManager: ObservableObject {
         settingsStore.shield.webDomains = selection.webDomainTokens.isEmpty
             ? nil
             : selection.webDomainTokens
+
+        settingsStore.shield.applicationCategories = selection.categoryTokens.isEmpty
+            ? nil
+            : .specific(selection.categoryTokens)
+
+        settingsStore.shield.webDomainCategories = selection.categoryTokens.isEmpty
+            ? nil
+            : .specific(selection.categoryTokens)
     }
 
     private func showError(_ message: String) {
