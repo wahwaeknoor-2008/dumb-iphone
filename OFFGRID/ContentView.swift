@@ -141,7 +141,7 @@ struct ContentView: View {
                 .tracking(1.2)
                 .foregroundStyle(accent)
 
-            Text("Give OFFGRID permission to shield the apps you choose.")
+            Text("Give OFFGRID permission to keep your chosen apps available and shield the rest.")
                 .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(.white)
 
@@ -186,7 +186,7 @@ struct ContentView: View {
                                     .font(.system(size: 13, weight: .heavy, design: .rounded))
                                     .tracking(1)
 
-                                Text(mode == .open ? "No shields" : "Block picks")
+                                Text(mode == .open ? "No shields" : "Allow list")
                                     .font(.system(size: 10, weight: .medium))
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.8)
@@ -212,7 +212,7 @@ struct ContentView: View {
 
     private var appSelectionCard: some View {
         VStack(alignment: .leading, spacing: 14) {
-            sectionHeading("YOUR BLOCK LIST", detail: "YOU DECIDE")
+            sectionHeading("YOUR KEEP LIST", detail: "STAYS AVAILABLE")
 
             Button {
                 if manager.isAuthorized {
@@ -231,7 +231,7 @@ struct ContentView: View {
                         .background(accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 15))
 
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("Choose apps & websites")
+                        Text("Choose apps to keep")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundStyle(.white)
 
@@ -255,7 +255,7 @@ struct ContentView: View {
             }
             .buttonStyle(.plain)
 
-            Text("Selected apps and websites are shielded in Dumb and Work modes. Open mode removes OFFGRID's shields.")
+            Text("Only the apps, websites and categories in this list stay available in Dumb and Work modes. Everything else is shielded. Add essentials such as Phone, Messages and Maps before activating. Open mode removes OFFGRID's shields.")
                 .font(.system(size: 12))
                 .foregroundStyle(.white.opacity(0.44))
                 .fixedSize(horizontal: false, vertical: true)
