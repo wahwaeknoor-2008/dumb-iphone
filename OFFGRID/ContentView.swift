@@ -235,7 +235,7 @@ struct ContentView: View {
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundStyle(.white)
 
-                        Text("\(manager.selectedAppCount) apps  ·  \(manager.selectedWebsiteCount) websites selected")
+                        Text("\(manager.selectedAppCount) apps  ·  \(manager.selectedWebsiteCount) websites  ·  \(manager.selectedCategoryCount) categories")
                             .font(.system(size: 11, weight: .medium, design: .monospaced))
                             .foregroundStyle(.white.opacity(0.48))
                     }
