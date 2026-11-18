@@ -28,7 +28,7 @@ final class FocusManager: ObservableObject {
            ) {
             selection = savedSelection
         } else {
-            selection = FamilyActivitySelection()
+            selection = FamilyActivitySelection(includeEntireCategory: true)
         }
 
         // Never assume authorization is still available after an app reinstall,
@@ -85,6 +85,15 @@ final class FocusManager: ObservableObject {
     }
 
     func activate(_ newMode: FocusMode) {
+        let hasAllowedItems = !selection.applicationTokens.isEmpty
+            || !selection.webDomainTokens.isEmpty
+            || !selection.categoryTokens.isEmpty
+
+        guard !newMode.isRestrictive || hasAllowedItems else {
+            showError("Choose at least one app, website, or category to keep available before activating this mode.")
+            return
+        }
+
         guard newMode == .open || isAuthorized else {
             showError("Allow Screen Time access before turning on Dumb or Work mode.")
             return
@@ -104,21 +113,12 @@ final class FocusManager: ObservableObject {
             return
         }
 
-        settingsStore.shield.applications = selection.applicationTokens.isEmpty
-            ? nil
-            : selection.applicationTokens
-
-        settingsStore.shield.webDomains = selection.webDomainTokens.isEmpty
-            ? nil
-            : selection.webDomainTokens
-
-        settingsStore.shield.applicationCategories = selection.categoryTokens.isEmpty
-            ? nil
-            : .specific(selection.categoryTokens)
-
-        settingsStore.shield.webDomainCategories = selection.categoryTokens.isEmpty
-            ? nil
-            : .specific(selection.categoryTokens)
+        // Allow-list model: everything is shielded except the apps and sites
+        // the person explicitly selected in FamilyActivityPicker.
+        settingsStore.shield.applications = nil
+        settingsStore.shield.webDomains = nil
+        settingsStore.shield.applicationCategories = .all(except: selection.applicationTokens)
+        settingsStore.shield.webDomainCategories = .all(except: selection.webDomainTokens)
     }
 
     private func showError(_ message: String) {
