@@ -13,7 +13,7 @@ struct ContentView: View {
         ZStack {
             background.ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: true) {
                 VStack(alignment: .leading, spacing: 28) {
                     header
                     introduction
@@ -31,7 +31,9 @@ struct ContentView: View {
                 .padding(.top, 20)
                 .padding(.bottom, 36)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .preferredColorScheme(.dark)
         .sheet(isPresented: $isShowingAppPicker) {
             AppSelectionSheet(selection: $manager.selection)
@@ -215,11 +217,12 @@ struct ContentView: View {
             sectionHeading("YOUR KEEP LIST", detail: "STAYS AVAILABLE")
 
             Button {
-                if manager.isAuthorized {
-                    isShowingAppPicker = true
-                } else {
-                    Task {
+                Task {
+                    if !manager.isAuthorized {
                         await manager.requestAuthorization()
+                    }
+                    if manager.isAuthorized {
+                        isShowingAppPicker = true
                     }
                 }
             } label: {
