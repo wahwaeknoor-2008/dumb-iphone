@@ -1,13 +1,13 @@
 # OFFGRID — Dumb iPhone
 
-OFFGRID is an iOS app that helps make an iPhone less distracting by letting you choose distracting apps and shield them during focused modes.
+OFFGRID is an iOS app that helps make an iPhone less distracting by letting you choose the apps and websites you want to keep available, then shield everything else during focused modes.
 
 ## Current MVP
 
 - SwiftUI dashboard with Open, Dumb, and Work modes.
 - Individual Screen Time authorization using Apple's FamilyControls framework.
-- App and website selection with Apple's FamilyActivityPicker.
-- App and website shielding through ManagedSettings while Dumb or Work mode is active.
+- Allow-list selection with Apple's FamilyActivityPicker, including apps, websites, and categories.
+- ManagedSettings shields all other app and website categories while Dumb or Work mode is active, except the user's selected items.
 - Saves the selected activity and last mode locally on the device.
 
 ## Requirements
@@ -28,9 +28,9 @@ OFFGRID is an iOS app that helps make an iPhone less distracting by letting you 
 
 ## Important iOS limitations
 
-OFFGRID is not a replacement Home Screen or a system-wide launcher. iOS does not let an ordinary third-party app remove other apps from the Home Screen or prevent every possible route to them. This MVP uses Apple's Screen Time APIs to shield the apps and websites that the user selects while a restrictive OFFGRID mode is active.
+OFFGRID is not a replacement Home Screen or a system-wide launcher. iOS does not let an ordinary third-party app remove other apps from the Home Screen or prevent every possible route to them. This MVP uses Apple's Screen Time APIs to keep selected apps and websites available and shield the rest while a restrictive OFFGRID mode is active. Add essentials such as Phone, Messages, Maps, and Settings to the keep list before activating.
 
-The Open mode removes OFFGRID's shields. Dumb and Work currently use the same selected-app list. Later iterations can add separate lists, schedules, onboarding, and more detailed usage reporting.
+The Open mode removes OFFGRID's shields. Dumb and Work currently use the same keep list. The person can switch back to Open mode inside OFFGRID. Later iterations can add separate lists, schedules, onboarding, and more detailed usage reporting.
 
 ## Project layout
 
