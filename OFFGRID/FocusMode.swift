@@ -18,11 +18,11 @@ enum FocusMode: String, CaseIterable, Identifiable {
     var subtitle: String {
         switch self {
         case .open:
-            return "All selected apps are available."
+            return "No OFFGRID restrictions are active."
         case .dumb:
-            return "Your chosen distractions are shielded."
+            return "Only your chosen apps and sites stay available."
         case .work:
-            return "Stay with the task in front of you."
+            return "Your allowed apps stay available; the rest are shielded."
         }
     }
 
