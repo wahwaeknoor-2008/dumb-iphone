@@ -8,7 +8,7 @@ struct AppSelectionSheet: View {
     var body: some View {
         NavigationStack {
             FamilyActivityPicker(selection: $selection)
-                .navigationTitle("Choose distractions")
+                .navigationTitle("What stays available")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
