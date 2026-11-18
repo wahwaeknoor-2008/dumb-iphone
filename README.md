@@ -7,6 +7,7 @@ OFFGRID is an iOS app that helps make an iPhone less distracting by letting you 
 - SwiftUI dashboard with Open, Dumb, and Work modes.
 - Individual Screen Time authorization using Apple's FamilyControls framework.
 - Allow-list selection with Apple's FamilyActivityPicker, including apps, websites, and categories.
+- An in-app essentials checklist to help prepare a starter keep list (Phone, Messages, Maps, Calendar, Camera, Photos, Wallet, Music, Mail, Notes, Passwords, Authenticator, Banking, Transit, School/Work, and Reminders).
 - ManagedSettings shields all other app and website categories while Dumb or Work mode is active, except the user's selected items.
 - Saves the selected activity and last mode locally on the device.
 
@@ -30,7 +31,7 @@ OFFGRID is an iOS app that helps make an iPhone less distracting by letting you 
 
 OFFGRID is not a replacement Home Screen or a system-wide launcher. iOS does not let an ordinary third-party app remove other apps from the Home Screen or prevent every possible route to them. This MVP uses Apple's Screen Time APIs to keep selected apps and websites available and shield the rest while a restrictive OFFGRID mode is active. Add essentials such as Phone, Messages, Maps, and Settings to the keep list before activating.
 
-The Open mode removes OFFGRID's shields. Dumb and Work currently use the same keep list. The person can switch back to Open mode inside OFFGRID. Later iterations can add separate lists, schedules, onboarding, and more detailed usage reporting.
+The Open mode removes OFFGRID's shields. Dumb and Work currently use the same keep list. The person can switch back to Open mode inside OFFGRID. The suggested essentials checklist is a guide only; actual app allow-list entries must be selected in Apple's picker on the physical device. The iOS Simulator may show categories but no individual apps. Later iterations can add separate lists, schedules, onboarding, and more detailed usage reporting.
 
 ## Project layout
 
