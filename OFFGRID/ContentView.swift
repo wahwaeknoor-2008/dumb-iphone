@@ -25,6 +25,7 @@ struct ContentView: View {
 
                     modePicker
                     appSelectionCard
+                    essentialsCard
                     footer
                 }
                 .padding(.horizontal, 22)
@@ -265,6 +266,56 @@ struct ContentView: View {
         }
     }
 
+    private var essentialsCard: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            sectionHeading("START WITH THESE ESSENTIALS", detail: "SUGGESTED KEEP LIST")
+
+            Text("These are recommendations, not automatic permissions. Choose the apps that are actually installed on your iPhone using the system picker.")
+                .font(.system(size: 12))
+                .foregroundStyle(.white.opacity(0.48))
+                .fixedSize(horizontal: false, vertical: true)
+
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                ForEach(EssentialApp.defaults) { app in
+                    HStack(spacing: 9) {
+                        Image(systemName: app.symbol)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(accent)
+                            .frame(width: 22)
+
+                        Text(app.name)
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(.white.opacity(0.88))
+                            .lineLimit(1)
+
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 11)
+                    .padding(.vertical, 12)
+                    .background(panel, in: RoundedRectangle(cornerRadius: 13))
+                }
+            }
+
+            Label {
+                Text("The Simulator can show an empty app list. Run OFFGRID on your real iPhone to select the apps installed on that device.")
+                    .font(.system(size: 11))
+                    .fixedSize(horizontal: false, vertical: true)
+            } icon: {
+                Image(systemName: "iphone.gen3")
+                    .foregroundStyle(accent)
+            }
+            .foregroundStyle(.white.opacity(0.62))
+            .padding(13)
+            .background(accent.opacity(0.08), in: RoundedRectangle(cornerRadius: 14))
+        }
+        .padding(17)
+        .background(panel.opacity(0.72), in: RoundedRectangle(cornerRadius: 21))
+        .overlay {
+            RoundedRectangle(cornerRadius: 21)
+                .stroke(.white.opacity(0.06), lineWidth: 1)
+        }
+    }
+
     private var footer: some View {
         VStack(spacing: 8) {
             Rectangle()
@@ -300,4 +351,30 @@ struct ContentView: View {
                 .foregroundStyle(.white.opacity(0.35))
         }
     }
+}
+
+
+private struct EssentialApp: Identifiable {
+    let id: String
+    let name: String
+    let symbol: String
+
+    static let defaults: [EssentialApp] = [
+        EssentialApp(id: "phone", name: "Phone", symbol: "phone.fill"),
+        EssentialApp(id: "messages", name: "Messages", symbol: "message.fill"),
+        EssentialApp(id: "maps", name: "Maps", symbol: "map.fill"),
+        EssentialApp(id: "calendar", name: "Calendar", symbol: "calendar"),
+        EssentialApp(id: "camera", name: "Camera", symbol: "camera.fill"),
+        EssentialApp(id: "photos", name: "Photos", symbol: "photo.fill"),
+        EssentialApp(id: "wallet", name: "Wallet", symbol: "wallet.pass.fill"),
+        EssentialApp(id: "music", name: "Music", symbol: "music.note"),
+        EssentialApp(id: "mail", name: "Mail", symbol: "envelope.fill"),
+        EssentialApp(id: "notes", name: "Notes", symbol: "note.text"),
+        EssentialApp(id: "passwords", name: "Passwords", symbol: "key.fill"),
+        EssentialApp(id: "authenticator", name: "Authenticator", symbol: "lock.shield.fill"),
+        EssentialApp(id: "banking", name: "Banking", symbol: "building.columns.fill"),
+        EssentialApp(id: "transit", name: "Transit", symbol: "tram.fill"),
+        EssentialApp(id: "school-work", name: "School / Work", symbol: "book.closed.fill"),
+        EssentialApp(id: "reminders", name: "Reminders", symbol: "checklist")
+    ]
 }
